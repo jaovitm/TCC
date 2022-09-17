@@ -47,8 +47,47 @@ const styles = StyleSheet.create({
     height: 250,
     margin: 10,
   },
-  body:{
-    marginTop:100,
+  body: {
+    marginTop: 50,
+    flex: 1,
+  },
+  activetitle: {
+    color: "white",
+    fontSize: 30,
+    letterSpacing: 5,
+    paddingTop: 30,
+  },
+  card: {
+    flex: 1,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 15,
+    borderColor: "white",
+    borderStyle: "solid",
+    borderWidth: 0.5,
+  },
+  cardImage: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10,
+    marginBottom: 10,
+    width: 300,
+    height: 200,
+    borderRadius: 10,
+  },
+  cardTitle: {
+    color: "gold",
+    fontSize: 30,
+    textAlign: "center",
+    letterSpacing: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  cardDesc: {
+    color: "white",
+    fontSize: 20,
+    textAlign:"justify",
   },
 });
 
