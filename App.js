@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+const knex = require("./database/database.js");
 import { View, Image, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native";
 import style from "./styles";
@@ -31,6 +32,16 @@ const category = [
 ];
 
 const DisplayAnImage = () => {
+  const [events, setEvents] = useState([]);
+
+  const databaseEvents = async () => {
+    await fetch("localhost").then(res => res.json()).then(res => setEvents(res)).catch(err => )
+
+  };
+
+  useEffect(() => {
+    databaseEvents();
+  },[]);
 
   return (
     <ScrollView contentContainerStyle={style.container}>
@@ -94,7 +105,6 @@ const DisplayAnImage = () => {
           </Text>
         </View>
       </View>
-
     </ScrollView>
   );
 };
