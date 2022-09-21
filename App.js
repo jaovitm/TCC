@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-const knex = require("./database/database.js");
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, Image, Text } from "react-native";
 import { ScrollView } from "react-native";
 import style from "./styles";
 import { Dimensions } from "react-native";
@@ -8,7 +7,7 @@ import Funk from "./assets/funk.jpg";
 import Trap from "./assets/trap.jpg";
 import Sertanejo from "./assets/sertanejo.jpg";
 import Forro from "./assets/forro.jpg";
-
+import axios from "axios";
 const windowWidth = Dimensions.get("screen").width;
 const windowHeight = Dimensions.get("screen").height;
 
@@ -31,17 +30,29 @@ const category = [
   },
 ];
 
+let events = [
+  
+];
+
+const databaseEvents = async () => {
+  try {
+     await axios
+    .get("http://192.168.26.180/")
+    .then((res) => {
+      res.data.map((item) => events.push(item));
+    })
+  } catch (error) {
+    console.log(error)
+  }
+ 
+
+  console.log(events);
+};
+
+databaseEvents();
+
 const DisplayAnImage = () => {
-  const [events, setEvents] = useState([]);
 
-  const databaseEvents = async () => {
-    await fetch("localhost").then(res => res.json()).then(res => setEvents(res)).catch(err => )
-
-  };
-
-  useEffect(() => {
-    databaseEvents();
-  },[]);
 
   return (
     <ScrollView contentContainerStyle={style.container}>
@@ -71,40 +82,15 @@ const DisplayAnImage = () => {
           </ScrollView>
         </View>
       </View>
-
       <Text style={style.activetitle}>Eventos Ativos</Text>
 
-      <View style={style.body}>
-        <View style={style.card}>
-          <Image
-            source={require("./assets/logo.jpg")}
-            style={style.cardImage}
-          />
-          <Text style={style.cardTitle}>Baile da Serra</Text>
-          <Text style={style.cardDesc}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.{" "}
-          </Text>
-        </View>
-      </View>
-
-      <View style={style.body}>
-        <View style={style.card}>
-          <Image
-            source={require("./assets/logo.jpg")}
-            style={style.cardImage}
-          />
-          <Text style={style.cardTitle}>Boteco do Gustavo Lima</Text>
-          <Text style={style.cardDesc}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.{" "}
-          </Text>
-        </View>
-      </View>
+      {events.map((item) => {
+        return (
+          <View style={style.body}>
+            <Text style={style.activetitle}>{item.nome}</Text>
+          </View>
+        );
+      })}
     </ScrollView>
   );
 };
